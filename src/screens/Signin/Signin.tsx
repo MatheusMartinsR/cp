@@ -5,28 +5,42 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  ToastAndroid,
 } from "react-native";
+import { AuthService } from "../../service/auth";
 
 export const Signin: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const handleSignin = () => {
+    AuthService.login({
+      email: email,
+      password: password,
+    })
+      .then((res) => {
+        console.log(res);
+        ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
+      })
+      .catch((err) => {
+        console.error(err);
+        ToastAndroid.show("Erro ao realizar o login!", ToastAndroid.SHORT);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Text>E-mail:</Text>
-        <TextInput
-          value={email}
-          onChangeText={(e) => setEmail(e)}
-          style={styles.input}
-        />
+        <TextInput value={email} onChangeText={setEmail} style={styles.input} />
         <Text>Senha:</Text>
         <TextInput
           value={password}
-          onChangeText={(e) => setPassword(e)}
+          onChangeText={setPassword}
           style={styles.input}
+          secureTextEntry
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleSignin}>
           <Text>LOGIN</Text>
         </TouchableOpacity>
       </View>

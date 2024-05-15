@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createNativeStackNavigator,
@@ -6,7 +6,8 @@ import {
 } from "@react-navigation/native-stack";
 import { Home } from "../screens/Home/Home";
 import { About } from "../screens/About/About";
-import { Signin } from "../screens/Signin/signin";
+import { Signin } from "../screens/Signin/Signin";
+
 
 const Stack = createNativeStackNavigator();
 

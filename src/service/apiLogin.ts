@@ -2,7 +2,7 @@ import axios from "axios";
 import { responseInterceptor } from "./interceptors/ResponseInterceptor";
 import { errorInterceptor } from "./interceptors/ErrorInterceptor";
 
-export const BASE_URL = "https://reqres.in/api/login";
+export const BASE_URL = "https://reqres.in/api/";
 
 const apiLogin = axios.create({
   baseURL: BASE_URL,
