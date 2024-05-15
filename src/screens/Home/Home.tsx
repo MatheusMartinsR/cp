@@ -10,10 +10,14 @@ export const Home: React.FC = () => {
     navigation.navigate("About");
   };
 
+  const handleNavigateSignin = () => {
+    navigation.navigate("Signin")
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleNavigateSignin}>
           <Text>Entrar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handleNavigateAbout}>
