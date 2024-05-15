@@ -1,14 +1,22 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { StackTypes } from "../../routes/stack.routes";
 
 export const Home: React.FC = () => {
+  const navigation = useNavigation<StackTypes>();
+
+  const handleNavigateAbout = () => {
+    navigation.navigate("About");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <TouchableOpacity style={styles.button}>
           <Text>Entrar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleNavigateAbout}>
           <Text>Sobre</Text>
         </TouchableOpacity>
       </View>
