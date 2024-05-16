@@ -7,6 +7,7 @@ import {
 import { Home } from "../screens/Home/Home";
 import { About } from "../screens/About/About";
 import { Signin } from "../screens/Signin/Signin";
+import { Dashboard } from "../screens/Dashboard/Dashboard";
 
 
 const Stack = createNativeStackNavigator();
@@ -37,6 +38,9 @@ export default function StackComponent() {
           name="About"
           options={{
             title: "Marvel App - Sobre",
+            headerStyle: {
+              backgroundColor: "pink"
+            }
           }}
           component={About}
         />
@@ -48,6 +52,16 @@ export default function StackComponent() {
             headerShown: false,
           }}
           component={Signin}
+        />
+        <Stack.Screen
+          name="Dashboard"
+          options={{
+            title: "Marvel App - Personagens",
+            headerStyle: {
+              backgroundColor: "pink"
+            }
+          }}
+          component={Dashboard}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -8,8 +8,12 @@ import {
   ToastAndroid,
 } from "react-native";
 import { AuthService } from "../../service/auth";
+import { useNavigation } from "@react-navigation/native";
+import { StackTypes } from "../../routes/stack.routes";
 
 export const Signin: React.FC = () => {
+  const navigation = useNavigation<StackTypes>();
+
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -21,6 +25,7 @@ export const Signin: React.FC = () => {
       .then((res) => {
         console.log(res);
         ToastAndroid.show("Login realizado com sucesso", ToastAndroid.SHORT);
+        navigation.navigate("Dashboard")
       })
       .catch((err) => {
         console.error(err);
