@@ -2,7 +2,7 @@ import axios from "axios";
 import { responseInterceptor } from "./interceptors/ResponseInterceptor";
 import { errorInterceptor } from "./interceptors/ErrorInterceptor";
 
-export const BASE_URL = "https://developer.marvel.com/";
+export const BASE_URL = "https://gateway.marvel.com:443/";
 
 const apiMarvel = axios.create({
   baseURL: BASE_URL,

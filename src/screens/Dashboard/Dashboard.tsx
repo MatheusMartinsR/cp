@@ -1,11 +1,52 @@
-import React, { useState } from "react";
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  FlatList,
+  Image,
+} from "react-native";
+import { CharacterService } from "../../service/characters";
+import { Character, CharacterResponseProps } from "../../service/interfaces/character";
 
 export const Dashboard: React.FC = () => {
   const [character, setCharacter] = useState<string>("");
-  const [characterList, setCharacterList] = useState<[]>([]);
+  const [characterList, setCharacterList] = useState<CharacterResponseProps | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const totalCharacters = characterList.length
+  const totalCharacters = characterList?.data.results.length;
+
+  const handleGetCharacters = useCallback(() => {
+    setLoading(true);
+    CharacterService.getCharacters()
+      .then((res) => {
+        setCharacterList(res);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    handleGetCharacters();
+  }, []);
+
+  const renderCharacter = ({ item }: { item: Character }) => {
+    return (
+      <View style={styles.content}>
+        <View style={styles.characterName}>
+          <Text>{item.name}</Text>
+        </View>
+        <Image source={{ uri: `${item.thumbnail.path}.${item.thumbnail.extension}` }} width={280} height={400} />
+        <View style={styles.characterName}>
+          <Text>{item.comics.items[0].name}</Text>
+        </View>
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -18,11 +59,20 @@ export const Dashboard: React.FC = () => {
           style={styles.input}
         />
       </View>
-      <View 
-      style={styles.characterSection}
-      >
-        <Text style={styles.text}>{totalCharacters} de {totalCharacters} Personagens Econtrados</Text>
-      </View>
+      {loading ? (
+        <Text>Loading...</Text>
+      ) : (
+        <View style={styles.characterSection}>
+          <Text style={styles.text}>
+            {totalCharacters} de {totalCharacters} Personagens Econtrados
+          </Text>
+          <FlatList
+            data={characterList?.data?.results}
+            renderItem={renderCharacter}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        </View>
+      )}
     </View>
   );
 };
